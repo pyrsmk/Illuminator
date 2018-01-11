@@ -1,0 +1,19 @@
+{
+    "name": "pyrsmk/illuminator",
+    "description": "Simple chrono",
+    "keywords": ["chrono", "chronometer", "stopwatch", "timer", "time"],
+    "license": "MIT",
+    "authors": [{
+        "name": "Aurélien Delogu",
+        "email": "dev@dreamysource.fr",
+        "homepage": "http://dreamysource.io/project/illuminator"
+    }],
+    "require": {
+        "php": ">=7.2.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Illuminator\\" : "src/"
+        }
+    }
+}
