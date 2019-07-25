@@ -41,7 +41,9 @@ $suite->expects('Chrono: format')
 
 ########################################################### SecondsChrono class
 
-$chrono = new Illuminator\SecondsChrono();
+$chrono = new Illuminator\SecondsChrono(
+    new Illuminator\Chrono()
+);
 sleep(1);
 
 $suite->expects('SecondsChrono: type')
@@ -54,7 +56,9 @@ $suite->expects('SecondsChrono: format')
 
 ########################################################### MillisecondsChrono class
 
-$chrono = new Illuminator\MillisecondsChrono();
+$chrono = new Illuminator\MillisecondsChrono(
+    new Illuminator\Chrono()
+);
 sleep(1);
 
 $suite->expects('MillisecondsChrono: type')

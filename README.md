@@ -1,29 +1,33 @@
-Illuminator 1.0.0
-=================
+# Illuminator
 
-This is a really simple chronometer, designed to be a well designed object.
+This is a really simple chronometer.
 
-Install
-=======
+## Install
 
-```
+```sh
 composer require pyrsmk/illuminator
 ```
 
-Use
-===
+## Use
 
-```
+```php
 $chrono = new Illuminator\Chrono();
-
-// ...
-
+// Some actions...
 $chrono->read();
 ```
 
-The time is returned as a [microtime](http://php.net/manual/en/function.microtime.php) float number (in seconds). If needed, you can use `SecondsChrono` object to have a result in rounded seconds, or even `MillisecondsChrono`.
+The time is returned as a [microtime](http://php.net/manual/en/function.microtime.php) float number (in seconds).
 
-License
--------
+If needed, you can use `SecondsChrono` object to have a result in rounded seconds, or even `MillisecondsChrono`, like so:
+
+```php
+$chrono = new Illuminator\MillisecondsChrono(
+    new Illuminator\Chrono()
+);
+// Some actions...
+$chrono->read();
+```
+
+## License
 
 Released under the [MIT license](http://dreamysource.mit-license.org).

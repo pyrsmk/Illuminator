@@ -3,29 +3,31 @@
 namespace Illuminator;
 
 /**
- * Chrono in seconds (rounded)
+ * Seconds chrono decorator
  */
 final class SecondsChrono implements TimeInterface
 {
     /**
-     * The chrono
+     * The base chrono
      *
-     * @var Chrono
+     * @var TimeInterface
      */
     private $chrono;
 
     /**
      * Constructor
+     *
+     * @param TimeInterface $chrono
      */
-    public function __construct()
+    public function __construct(TimeInterface $chrono)
     {
-        $this->chrono = new Chrono();
+        $this->chrono = $chrono;
     }
 
     /**
      * Read the elapsed time in seconds (rounded)
      *
-     * @return int
+     * @return float
      */
     public function read() : float
     {
