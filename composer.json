@@ -1,6 +1,6 @@
 {
     "name": "pyrsmk/illuminator",
-    "description": "Simple chrono",
+    "description": "Simple chronometers",
     "keywords": ["chrono", "chronometer", "stopwatch", "timer", "time"],
     "license": "MIT",
     "authors": [{
