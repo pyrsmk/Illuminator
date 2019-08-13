@@ -7,21 +7,64 @@ namespace Illuminator;
 /**
  * Chrono base class
  */
-final class Chrono implements TimeInterface
+final class Chrono implements ChronoInterface
 {
     /**
-     * Start time
+     * Beginning time
      *
      * @var float
      */
-    private $time;
+    private $beginning = 0.0;
 
     /**
-     * Constructor
+     * End time
+     *
+     * @var float
      */
-    public function __construct()
+    private $end = 0.0;
+
+    /**
+     * Chrono state
+     *
+     * @var boolean
+     */
+    private $started = false;
+
+    /**
+     * Start the chrono
+     *
+     * @return void
+     */
+    public function start() : void
     {
-        $this->time = new Time();
+        if ($this->started === false) {
+            if ($this->beginning === 0.0) {
+                $this->beginning = microtime(true);
+            }
+            $this->started = true;
+        }
+    }
+
+    /**
+     * Pause the chrono
+     *
+     * @return void
+     */
+    public function stop() : void
+    {
+        $this->end = microtime(true);
+        $this->started = false;
+    }
+
+    /**
+     * Reset the chrono
+     *
+     * @return void
+     */
+    public function reset() : void
+    {
+        $this->beginning = microtime(true);
+        $this->end = microtime(true);
     }
 
     /**
@@ -31,6 +74,9 @@ final class Chrono implements TimeInterface
      */
     public function read() : float
     {
-        return (new Time())->read() - $this->time->read();
+        if ($this->started === true) {
+            $this->end = microtime(true);
+        }
+        return $this->end - $this->beginning;
     }
 }

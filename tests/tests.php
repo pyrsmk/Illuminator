@@ -14,43 +14,67 @@ $loader->register();
 
 $suite = new MiniSuite\Suite('Illuminator');
 
-########################################################### Time class
-
-$time = new Illuminator\Time();
-
-$suite->expects('Time: type')
-    ->that($time->read())
-    ->isFloat();
-
-$suite->expects('Time: format')
-    ->that(preg_match('/\d{10}\.\d{1,4}/', $time->read()))
-    ->equals(1);
-
 ########################################################### Chrono class
 
 $chrono = new Illuminator\Chrono();
-sleep(1);
 
-$suite->expects('Chrono: type')
+$suite->expects('Chrono: read after instanciation')
     ->that($chrono->read())
-    ->isFloat();
+    ->equals(0.0);
 
-$suite->expects('Chrono: format')
-    ->that(preg_match('/\d\.\d+/', $chrono->read()))
+$chrono->start();
+usleep(1000);
+$elapsed = $chrono->read();
+
+$suite->expects('Chrono: 1000µs has passed')
+    ->that($elapsed)
+    ->isGreaterThanOrEqual(0.0001);
+
+$suite->expects('Chrono: time format')
+    ->that(preg_match('/\d\.\d+/', $elapsed))
     ->equals(1);
+
+$suite->expects('Chrono: chrono still running')
+    ->that($chrono->read())
+    ->isGreaterThan($elapsed);
+
+$chrono->reset();
+
+$suite->expects('Chrono: chrono bas been reset')
+    ->that($chrono->read())
+    ->isLessThan($elapsed);
+
+$chrono->stop();
+$elapsed = $chrono->read();
+usleep(1000);
+
+$suite->expects('Chrono: chrono has been stopped')
+    ->that($chrono->read())
+    ->equals($elapsed);
+
+$chrono->start();
+
+$suite->expects('Chrono: chrono time has been resumed')
+    ->that($chrono->read())
+    ->isGreaterThan($elapsed);
+
+$chrono->stop();
+$chrono->reset();
+
+$suite->expects('Chrono: chrono has been stopped and reset')
+    ->that($chrono->read())
+    ->equals(0.0);
 
 ########################################################### SecondsChrono class
 
-$chrono = new Illuminator\SecondsChrono(
+$chrono = new Illuminator\RoundedSecondsChrono(
     new Illuminator\Chrono()
 );
-sleep(1);
 
-$suite->expects('SecondsChrono: type')
-    ->that($chrono->read())
-    ->isFloat();
+$chrono->start();
+usleep(1000);
 
-$suite->expects('SecondsChrono: format')
+$suite->expects('RoundedSecondsChrono: format')
     ->that(preg_match('/\d/', $chrono->read()))
     ->equals(1);
 
@@ -59,11 +83,9 @@ $suite->expects('SecondsChrono: format')
 $chrono = new Illuminator\MillisecondsChrono(
     new Illuminator\Chrono()
 );
-sleep(1);
 
-$suite->expects('MillisecondsChrono: type')
-    ->that($chrono->read())
-    ->isFloat();
+$chrono->start();
+sleep(1);
 
 $suite->expects('MillisecondsChrono: format')
     ->that(preg_match('/\d{4}/', $chrono->read()))

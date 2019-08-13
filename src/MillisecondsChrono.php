@@ -27,6 +27,36 @@ final class MillisecondsChrono implements TimeInterface
     }
 
     /**
+     * Start the chrono
+     *
+     * @return void
+     */
+    public function start() : void
+    {
+        $this->chrono->start();
+    }
+
+    /**
+     * Pause the chrono
+     *
+     * @return void
+     */
+    public function stop() : void
+    {
+        $this->chrono->stop();
+    }
+
+    /**
+     * Reset the chrono
+     *
+     * @return void
+     */
+    public function reset() : void
+    {
+        $this->chrono->reset();
+    }
+
+    /**
      * Read the elapsed time in seconds
      *
      * @return float
