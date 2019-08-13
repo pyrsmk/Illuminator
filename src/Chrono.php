@@ -79,4 +79,14 @@ final class Chrono implements ChronoInterface
         }
         return $this->end - $this->beginning;
     }
+
+    /**
+     * Read the time in MS
+     *
+     * @return float
+     */
+    public function readAsMilliseconds() : float
+    {
+        return round($this->read() * 1000);
+    }
 }
