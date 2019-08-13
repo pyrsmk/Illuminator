@@ -6,7 +6,7 @@
     "authors": [{
         "name": "Aurélien Delogu",
         "email": "dev@dreamysource.fr",
-        "homepage": "http://dreamysource.io/project/illuminator"
+        "homepage": "https://github.com/pyrsmk/Illuminator"
     }],
     "require": {
         "php": ">=7.2.0"
